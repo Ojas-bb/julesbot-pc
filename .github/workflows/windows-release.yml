@@ -30,10 +30,10 @@ jobs:
         with:
           type: 'zip'
           filename: 'JulesCommandCenter-Windows.zip'
-          directory: 'build/windows/runner/release'
+          directory: 'build/windows/x64/runner/Release'
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-release
-          path: build/windows/runner/release/JulesCommandCenter-Windows.zip
+          path: build/windows/x64/runner/Release/JulesCommandCenter-Windows.zip
