@@ -1,0 +1,39 @@
+name: Windows Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows --release
+
+      - name: Create Release Zip
+        uses: thedoctor0/zip-release@0.7.1
+        with:
+          type: 'zip'
+          filename: 'JulesCommandCenter-Windows.zip'
+          directory: 'build/windows/runner/release'
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-release
+          path: build/windows/runner/release/JulesCommandCenter-Windows.zip
